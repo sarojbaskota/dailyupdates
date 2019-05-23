@@ -33,7 +33,7 @@ class DailyUpdatesController extends Controller
         return view('admin.updates.update',compact('update','user_id','employee'));
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource. for employee
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,7 +61,7 @@ class DailyUpdatesController extends Controller
         return "Successfully Store Your Updates !!!";
     }
     /**
-     * Display the specified resource.
+     * Display the specified resource. for employee
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

@@ -89,7 +89,7 @@ class ScrumsController extends Controller
         if ($validator->fails())
         {
             return response()->json([
-               'errors' => $validator->errors()->all()
+               'errors' => $validator->errors(),
             ]);
         }
         Scrum::create($request->all());

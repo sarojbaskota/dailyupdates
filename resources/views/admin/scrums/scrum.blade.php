@@ -8,7 +8,7 @@
       </h1>
       <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li class="active">Scrums</li>
       </ol>
     </section>
 
@@ -45,6 +45,7 @@
                         <!-- /.direct-chat-img -->
                           <textarea name="done"  cols="142" rows="10" class="done direct-chat-text" ></textarea>
                         <!-- /.direct-chat-text -->
+                        <div class="text-red error_done"></div>
         </div>
         <div class="direct-chat-msg">
                           <div class="direct-chat-info clearfix">
@@ -67,6 +68,7 @@
                         <img class="direct-chat-img" src="{{asset('images/avatar/'.$employee->avatar)}}" alt="message user image">
                         <!-- /.direct-chat-img -->
                           <textarea name="todo"  cols="142" rows="10" class="todo direct-chat-text" ></textarea>
+                          <div class="text-red error_todo"></div>
                         <!-- /.direct-chat-text -->
         </div>
         <div class="direct-chat-msg">
@@ -90,6 +92,7 @@
                         <img class="direct-chat-img" src="{{asset('images/avatar/'.$employee->avatar)}}" alt="message user image">
                         <!-- /.direct-chat-img -->
                           <textarea name="done"  cols="142" rows="10" class="roadblock direct-chat-text" ></textarea>
+                          <div class="text-red error_roadblock"></div>
                         <!-- /.direct-chat-text -->
         </div>
               <span class="input-group-btn">
@@ -173,7 +176,8 @@ $("#create_form .button_update").click(function(event){
         data: {user_id:user_id, done:done, todo:todo, roadblock:roadblock},
         success: function(result)
         {
-          console.log(result);
+          if(!result.errors){
+            console.log(result);
           swal({
           title: result.message,
           text: 'success',
@@ -181,14 +185,16 @@ $("#create_form .button_update").click(function(event){
           }).then(function(){
             location.reload();
           });
-        },
-        error: function(result)
-        {
-          $('.alert-danger').html('');
-          $.each(result.errors, function(key, value){
-            $('.alert-danger').show();
-            $('.alert-danger').append('<li>'+value+'<li>');
-          });
+          }
+          if(result.errors.done){
+            $('.error_done').text(result.errors.done);
+          }
+          if(result.errors.todo){
+            $('.error_todo').text(result.errors.todo);
+          }
+          if(result.errors.roadblock){
+            $('.error_roadblock').text(result.errors.roadblock);
+          }
         },
 });
 });
